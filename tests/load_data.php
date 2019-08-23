@@ -44,4 +44,8 @@ class load_data
     {
         self::load(__DIR__.'/slapd/adtools_test_data_converted.ldif');
     }
+    public static function load_group_test_data()
+    {
+        self::load(__DIR__.'/slapd/groups_converted.ldf');
+    }
 }
