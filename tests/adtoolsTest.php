@@ -53,7 +53,7 @@ class adtoolsTest extends TestCase
     public function testLdap_query()
     {
         $result = $this->adtools->ldap_query('(objectclass=*)', array('base_dn'=>'OU=Test,DC=example,DC=com', 'subtree'=>false));
-        $this->assertEquals('ou=adtools-test,ou=Test,dc=example,dc=com', $result['dn']);
+        $this->assertEquals('ou=adtools-test,ou=Test,dc=example,dc=com', $result);
     }
 
     public function MultipleHitsException()

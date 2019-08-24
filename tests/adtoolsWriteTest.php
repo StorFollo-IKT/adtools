@@ -33,7 +33,7 @@ class adtoolsWriteTest extends TestCase
         $new = $this->adtools->move('CN=user2,OU=Users,OU=adtools-test,OU=Test,DC=example,DC=com', 'OU=move,OU=adtools-test,OU=Test,DC=example,DC=com');
         $this->assertEquals('CN=user2,OU=move,OU=adtools-test,OU=Test,DC=example,DC=com', $new);
         $result = $this->adtools->ldap_query('(displayName=user2)', array('base_dn'=>'ou=Test,dc=example,dc=com'));
-        $this->assertEquals('cn=user2,ou=move,ou=adtools-test,ou=Test,dc=example,dc=com', $result['dn']);
+        $this->assertEquals('cn=user2,ou=move,ou=adtools-test,ou=Test,dc=example,dc=com', $result);
         ldap_delete($this->adtools->ad, $new);
     }
 
@@ -54,7 +54,7 @@ class adtoolsWriteTest extends TestCase
         $this->adtools->change_password('CN=user1,OU=Users,OU=adtools-test,OU=Test,DC=example,DC=com', 'test2');
         $this->adtools->change_password('CN=user1 ,OU=Users,OU=adtools-test,OU=Test,DC=example,DC=com', 'test2', true);
         $result = $this->adtools->find_object('user1', 'OU=adtools-test,OU=Test,DC=example,DC=com','user', array('pwdLastSet'));
-        $this->assertEquals('0', $result['pwdlastset'][0]);
+        $this->assertEquals('0', $result);
     }
 
     public function tearDown(): void
