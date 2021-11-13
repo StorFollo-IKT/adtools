@@ -32,6 +32,11 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Check path
+        run: |
+          pwd
+          ls -l vendor
+
       - name: Build docker container
         uses: StorFollo-IKT/slapd-ad-emulator@master
 
@@ -43,5 +48,6 @@ jobs:
 
       - name: Run test suite
         run: |
+          pwd
           ls -l vendor
           vendor/bin/phpunit
