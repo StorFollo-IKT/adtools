@@ -11,6 +11,9 @@ jobs:
         php: [ '7.3', '7.4', '8.0' ]
 
     steps:
+      - name: Build docker container
+        uses: StorFollo-IKT/slapd-ad-emulator@master
+
       - uses: actions/checkout@v2
 
       - name: Cache Composer packages
@@ -37,8 +40,7 @@ jobs:
           pwd
           ls -l vendor
 
-      - name: Build docker container
-        uses: StorFollo-IKT/slapd-ad-emulator@master
+
 
       - name: Start docker container
         run: docker run -d -p 389:389 ad_emulator
