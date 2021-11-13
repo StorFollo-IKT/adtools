@@ -36,7 +36,7 @@ jobs:
         uses: StorFollo-IKT/slapd-ad-emulator@master
 
       - name: Start docker container
-        run: docker run -d -p 389:389 adtools_php_ldap
+        run: docker run -d -p 389:389 ad_emulator
 
       - name: Install LDAP utils
         run: sudo apt-get install -y ldap-utils
