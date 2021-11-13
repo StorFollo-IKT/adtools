@@ -15,6 +15,12 @@ class adtools
      * @var Ldap\Ldap
      */
     public $ldap;
+
+    /**
+     * @var $base_dn string Default base DN for queries
+     */
+    public $base_dn;
+
     /**
      * adtools constructor.
      */
@@ -39,6 +45,10 @@ class adtools
 
         if (isset($config['username']) && isset($config['password']))
             $adtools->connect_and_bind($config['username'], $config['password'], $config['dc'], $config['protocol'], $config['port']);
+
+        if(!empty($config['dn']))
+            $adtools->base_dn = $config['dn'];
+
         return $adtools;
     }
 
@@ -97,10 +107,10 @@ class adtools
 
         if(empty($options['base_dn']))
         {
-            if(!empty($this->config['dn']))
-                $options['base_dn']=$this->config['dn'];
+            if(!empty($this->base_dn))
+                $options['base_dn']=$this->base_dn;
             else
-                throw new InvalidArgumentException('Base DN empty and not set in config');
+                throw new InvalidArgumentException('Base DN empty');
         }
         if(!is_array($options['attributes']))
             throw new InvalidArgumentException('attributes must be array');
