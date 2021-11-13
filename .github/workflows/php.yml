@@ -37,7 +37,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Build docker container
-        run: docker build -t adtools_php_ldap tests
+        uses: StorFollo-IKT/slapd-ad-emulator@master
 
       - name: Start docker container
         run: docker run -d -p 389:389 adtools_php_ldap
