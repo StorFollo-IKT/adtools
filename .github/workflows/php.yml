@@ -43,5 +43,5 @@ jobs:
 
       - name: Run test suite
         run: |
-          ls -l vendor/bin
+          ls -l vendor
           vendor/bin/phpunit
