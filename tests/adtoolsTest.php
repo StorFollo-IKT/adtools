@@ -49,7 +49,10 @@ class adtoolsTest extends TestCase
     {
         set_include_path(__DIR__);
         $adtools = adtools\adtools::connect_config($this->config['test']);
-        $this->assertIsResource($adtools->ad);
+        if (version_compare(phpversion(), '8.1', '<'))
+            $this->assertIsResource($adtools->ad);
+        else
+            $this->assertIsObject($adtools->ad);
     }
 
     public function testInvalidConfig()
