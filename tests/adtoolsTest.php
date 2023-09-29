@@ -42,12 +42,18 @@ class adtoolsTest extends TestCase
     {
         set_include_path(__DIR__);
         $adtools=new adtools\adtools('test');
-        $this->assertIsResource($adtools->ad);
+        if (version_compare(phpversion(), '8.1', '<'))
+            $this->assertIsResource($adtools->ad);
+        else
+            $this->assertIsObject($adtools->ad);
     }
 
     public function testConnect_and_bind()
     {
-        $this->assertIsResource($this->adtools->ad);
+        if (version_compare(phpversion(), '8.1', '<'))
+            $this->assertIsResource($this->adtools->ad);
+        else
+            $this->assertIsObject($this->adtools->ad);
     }
 
     public function testLdap_query()

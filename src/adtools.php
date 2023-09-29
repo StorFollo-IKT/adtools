@@ -152,7 +152,7 @@ class adtools
         $options_default = array('single_result' => true, 'subtree' => true, 'attributes' => array('dn'));
         $options = array_merge($options_default, $options);
 
-        if(!is_resource($this->ad))
+        if(!is_resource($this->ad) && !is_object($this->ad))
             throw new InvalidArgumentException('Not connected to AD');
         if(empty($options['base_dn']))
         {
