@@ -4,13 +4,14 @@ namespace datagutten\adtools\tests;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
+
 class load_data
 {
     public static function load($file)
     {
         $domains = require 'domains.php';
         $domain = $domains['test'];
-        $process = new Process(['ldapadd','-c' ,'-h', $domain['dc'], '-D', 'cn=admin,dc=example,dc=com', '-w', 'test', '-f', $file]);
+        $process = new Process(['ldapadd','-c' ,'-H ldap://'. $domain['dc'], '-D', 'cn=admin,dc=example,dc=com', '-w', 'test', '-f', $file]);
         $process->run();
         if($process->getExitCode()==68)
             return;
@@ -27,7 +28,7 @@ class load_data
         if(empty($dn))
             $dn = $domain['dn'];
 
-        $process = new Process(['ldapdelete', '-r', '-h', $domain['dc'], '-D', 'cn=admin,dc=example,dc=com' , '-w', 'test', $dn]);
+        $process = new Process(['ldapdelete', '-r', '-H ldap://'. $domain['dc'], '-D', 'cn=admin,dc=example,dc=com' , '-w', 'test', $dn]);
         $process->run();
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
