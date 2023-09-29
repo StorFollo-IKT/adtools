@@ -6,6 +6,7 @@ namespace storfollo\adtools;
 use ArrayAccess;
 use Symfony\Component\Ldap;
 
+
 abstract class Entry implements ArrayAccess
 {
     /**
@@ -93,6 +94,11 @@ abstract class Entry implements ArrayAccess
      */
     public static function add(Ldap\Ldap $ldap, string $dn, array $attributes)
     {
+        foreach ($attributes as $key => $attribute)
+        {
+            if (!is_array($attribute))
+                $attributes[$key] = [$attribute];
+        }
         $entry = new Ldap\Entry($dn, $attributes);
         $ldap->getEntryManager()->add($entry);
         return static::from_dn($ldap, $dn);
